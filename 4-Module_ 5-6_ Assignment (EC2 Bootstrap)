@@ -50,6 +50,8 @@ Two screenshots
 2) Script that you used to automate all 
 
 
+#############################################################
+
 # Assignment
 
 ## Generate a Test host
@@ -98,9 +100,10 @@ You will see a Success message.
 
 
 1)	Go back to AWS Academy and find pre generated SSH keys. Select AWS Details and Download PPK
- 
-2)	See detailed connection information from AWS SSH guide “SSH Access to EC2 Instances / SSH Access from Windows  /  SSH Access from a Mac” 
 
+![SSH key](/images/SSH_key_download.png)
+
+2)	See detailed connection information from AWS SSH guide “SSH Access to EC2 Instances / SSH Access from Windows  /  SSH Access from a Mac” 
 3)	Log in to Ubuntu server and use package manager.
     1)	Change user to root (sudo su)
     2)	Run (apt update) 
@@ -143,8 +146,9 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
     sed -i "s/IDHERE/$EC2ID/" /var/www/html/index.html
     ```
 
-4)	Go back on the AWS EC2 connection page and find you machine Public IP. Open http connection and get a result. If network is not working use port forwarding-
+4)	Go back on the AWS EC2 connection page and find you machine Public IP. Open http connection and get a result. If network is not working use port forwarding.
 
+![SSH key](/images/HTTPSid.png)
 
 **TAKE A SCREENSHOT for the assignment! URL + txt. You have done the first part of the assignment. Next you will automate all settings on one user data script.**
 
