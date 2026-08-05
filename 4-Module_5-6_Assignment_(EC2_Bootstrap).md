@@ -6,7 +6,7 @@ Your task is to familiarize yourself with VPC, Security Groups and basic concept
 
 
 ## Materials
-* Task is located in Word file
+* Task under the assigment
 * AWS materials 5-6
 
 **SWAP**
@@ -48,6 +48,8 @@ Estimated duration ~4h
 Two screenshots 
 1) Screenshot of webpage that shows unique instance ID **AND** public IP address (URL) of the EC2 instance
 2) Script that you used to automate all 
+
+
 
 
 #############################################################
@@ -121,11 +123,17 @@ You will see a Success message.
 curl http://169.254.169.254/latest/meta-data/
 
 1)	New more secure way (IMDSv2)
+```bash
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+
+
 curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+```
 
 2)	Single new command 
+```bash
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+```
 
 3)	We will install Apache web server and export metadata information to webpage. Code is here: 
 

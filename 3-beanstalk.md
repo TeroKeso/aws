@@ -104,10 +104,10 @@ Make sure to use the correct service roles and specify the EC2 key pair.
 #### 4. Other Settings
 You can leave the rest of the settings as default.
 
-#### 5. Uploading Your PHP Code
+#### 5. Uploading Your PHP Code (Use your own school work or just use this [https://www.geeksforgeeks.org/php/php-hello-world/]([https://www.geeksforgeeks.org/php/php-hello-world/])
 - Zip your PHP files (without a folder, only the necessary files for your app) & upload.
   - **Even if it is just a single file, you are required to zip it or otherwise the deployment won't succeed.**
-- Deploy the zipped files using Elastic Beanstalk.
+- Deploy the **zipped** files using Elastic Beanstalk.
 - Once deployed, you should see your PHP app live.
 
 
