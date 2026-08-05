@@ -1,0 +1,189 @@
+# Moodle Group Settings and Working Individually
+Submissions are only allowed within a group. If you intend to complete the assignment individually, you must be in a group that contains only one member.
+
+## Purpose
+Your task is to familiarize yourself with VPC, Security Groups and basic concepts of automation. 
+
+
+## Materials
+* Task is located in Word file
+* AWS materials 5-6
+
+**SWAP**
+
+* [https://opensource.com/article/18/9/swap-space-linux-systems](https://opensource.com/article/18/9/swap-space-linux-systems)
+* [https://support.cpanel.net/hc/en-us/articles/360052914574-What-is-the-OOM-Killer-](https://support.cpanel.net/hc/en-us/articles/360052914574-What-is-the-OOM-Killer-)
+* [Linux Crash Course - Understanding Memory and Swap Usage Youtube](https://www.youtube.com/watch?v=XTMyJ5l0GLg)
+* [How to add a swap BY AWS](https://repost.aws/knowledge-center/ec2-memory-swap-file)
+
+**AWS Metadata**
+
+* [Use instance metadata to manage your EC2 instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+* [How Instance Metadata Service Version 2 works](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-metadata-v2-how-it-works.html)
+
+**Tailscale**
+
+* [Install Tailscale with cloud-init](https://tailscale.com/kb/1293/cloud-init)
+
+**Package managers**
+
+* [https://www.explainxkcd.com/wiki/index.php/1654:_Universal_Install_Script](https://www.explainxkcd.com/wiki/index.php/1654:_Universal_Install_Script)
+
+
+## Step-by-step guide for student
+
+1. Read ALL the materials :) 
+2. Do basic assignments from 5-6 modules in AWS Academy Portal.
+3. EC2 assignment was to use Amazon linux 2 but we will be using Ubuntu. You need to learn how to use Ubuntu and its package manager apt. 
+
+
+## Evaluation
+
+The task is done as a group and will be graded with 0-5
+
+## Schedule and timing
+Estimated duration ~4h
+
+## What to return?
+Two screenshots 
+1) Screenshot of webpage that shows unique instance ID **AND** public IP address (URL) of the EC2 instance
+2) Script that you used to automate all 
+
+
+# Assignment
+
+## Generate a Test host
+In this task, you will Generate an Amazon EC2 instance (Ubuntu) for learning how AWS machines work. In this task, you will launch an Amazon EC2 instance into the new VPC. You will configure the instance to act as a web server.
+1) In the search box to the right of Services, search for and choose EC2 to open the EC2 console.
+2) From the Launch instance menu choose Launch instance.
+
+3)	Name the instance:
+ 
+    Give it the name Test host HAMK
+    When you name your instance, AWS creates a tag and associates it with the instance. A tag is a key value pair. The key for this pair is **Name**, and the value is the name you enter for your EC2 instance.
+
+4)	Choose an AMI from which to create the instance:
+
+    In the list of available Quick Start AMIs, Select Ubuntu
+    The type of Amazon Machine Image (AMI) you choose determines the Operating System that will run on the EC2 instance that you launch.
+
+5)	Choose an Instance type:
+    in the Instance type panel, keep the default t2.micro selected.The Instance Type defines the hardware resources assigned to the instance.
+
+
+6)	Select the key pair to associate with the instance from the Key pair name menu, select vockey.The vockey key pair you selected will allow you to connect to this instance via SSH after it has launched. 
+
+7)	Configure the Network settings / Firewall
+  
+    1)	Create security group 
+    2)	Allow SSH
+    3)	Allow HTTPS
+    4)	Allow HTTP
+
+8.	In the Configure storage section, keep the default settings.
+Note: The default settings specify that the root volume of the instance, which will host the Amazon Linux guest operating system that you specified earlier, will run on a general purpose SSD (gp3) hard drive that is 8 GiB in size. You could alternatively add more storage volumes, however that is not needed in this lab.
+
+9.	At the bottom of the Summary panel on the right side of the screen choose Launch instance
+You will see a Success message.
+
+10.	Choose View all instances 
+
+11.	Wait until Test host HAMK shows 2/2 checks passed in the Status check column.
+
+    This may take a few minutes. Choose the refresh icon at the top of the page every 30 seconds or so to more quickly become aware of the latest status of the instance.
+
+    You will now connect to the web server running on the EC2 instance.
+ 
+## Connect to Test host and learning basic settings doing them manually in Bash. 
+
+
+1)	Go back to AWS Academy and find pre generated SSH keys. Select AWS Details and Download PPK
+ 
+2)	See detailed connection information from AWS SSH guide “SSH Access to EC2 Instances / SSH Access from Windows  /  SSH Access from a Mac” 
+
+3)	Log in to Ubuntu server and use package manager.
+    1)	Change user to root (sudo su)
+    2)	Run (apt update) 
+    3)	Write down how many updated packages you are using
+    4)	Package libwww-perl using command (apt install libwww-perl)
+
+
+4)	Check Swap Space in Linux using command (cat /proc/swaps) and add 1gb swap using following instructions https://repost.aws/knowledge-center/ec2-memory-swap-file
+
+ 
+5)	Retrieving Instance Metadata
+    Basic information https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html and https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-metadata-v2-how-it-works.html
+
+0)	Old insecure way (IMDSv1)
+curl http://169.254.169.254/latest/meta-data/
+
+1)	New more secure way (IMDSv2)
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+2)	Single new command 
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+3)	We will install Apache web server and export metadata information to webpage. Code is here: 
+
+    ```bash
+    sudo su
+    # Note sudo will not work in AWS Ubuntu image. For manual install (bash) we will use sudo su that EC2ID variable will stay in to same user
+    sudo apt update 
+    sudo apt upgrade -y
+    sudo apt install apache2 -y
+    sudo systemctl start apache2
+    sudo systemctl enable apache2
+
+    EC2ID=$(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+    && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id)
+
+    echo '<center><h1>This is Ubuntu on AWS EC2 Instance IDHERE </h1></center>' > /var/www/html/index.html
+
+    sed -i "s/IDHERE/$EC2ID/" /var/www/html/index.html
+    ```
+
+4)	Go back on the AWS EC2 connection page and find you machine Public IP. Open http connection and get a result. If network is not working use port forwarding-
+
+
+**TAKE A SCREENSHOT for the assignment! URL + txt. You have done the first part of the assignment. Next you will automate all settings on one user data script.**
+
+ 
+## Automating all settings on one user data
+
+1)	Next in your assignment is to generate all previous steps in AWS User data. We are lazy and we want to automate all settings on one user data script. You have all the information from previous steps. You will use the same script as before but now you will add all commands to one script. Just 1+1+1 all the code and you are done :) 
+
+**NOTE!!!**
+
+I recommend to adding the package lynx. Lynx is terminal based browser that open websites. You will be using it with command “www-browser localhost”. Why i need this? When automation is not working you need to check what is going on. You can use lynx to open localhost and see what is happening.
+
+SAMPLE SCRIPT:
+
+    ```
+    #!/bin/bash
+    apt update && apt upgrade -y && apt install apache2 lynx -y && systemctl start apache2 && systemctl enable apache2
+    ...
+    ...
+    ...
+    ```
+
+
+TAKE A SCREENSHOT for the assignment! URL + ID + script
+
+
+### THIS IS OPTIONAL!!! Tailscale integration
+
+Infrastructure-as-code tools like Pulumi or Terraform make it easy to spin up new resources like servers, or containers for your tailnet. Pre-authentication keys (“auth keys” for short) allow you to register them as they are being provisioned without needing to sign in via a web browser.
+
+Auth keys can be either one-off, useful when you can’t authenticate a device directly; or reusable, for multiple uses or when connecting multiple nodes. Auth keys authenticate a machine using the identity of the person who generated the key.
+
+Generating a key:
+Open the Keys page of the admin console. Choose what kind of key you’d like to generate. Also choose the number of days, between 1 and 90 inclusive, for the key expiry. The default is 90 days.
+
+Generate an auth key that has ACL tags, so that when used, the device’s identity is the tag. You can also generate an auth key that is pre-authorized so it will be automatically approved if you have device approval enabled for your network. 
+
+The Keys page also gives you the ability to revoke existing keys:
+Register a node with the auth key:
+•	When you register a node, use the  --authkey option in the tailscale up command to supply the key and bypass interactive login:
+
+TAKE A SCREENSHOT for the assignment! URL + ID + script + Tailscale status
