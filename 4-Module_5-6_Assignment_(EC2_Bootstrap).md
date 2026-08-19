@@ -110,21 +110,26 @@ You will see a Success message.
     1)	Change user to root (sudo su)
     2)	Run (apt update) 
     3)	Write down how many updated packages you are using
-    4)	Package libwww-perl using command (apt install libwww-perl)
 
 
-4)	Check Swap Space in Linux using command (cat /proc/swaps) and add 1gb swap using following instructions https://repost.aws/knowledge-center/ec2-memory-swap-file
+4) **This is a required package** Use Apt to install libwww-perl using command (apt install libwww-perl)
 
+
+5)	Check Swap Space in Linux using command (cat /proc/swaps) and add 1gb swap using following instructions https://repost.aws/knowledge-center/ec2-memory-swap-file
+
+
+### Instance Metadata
  
-5)	Retrieving Instance Metadata
+1)	Retrieving Instance Metadata
     Basic information https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html and https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-metadata-v2-how-it-works.html
 
-0)	Old insecure way (IMDSv1)
-curl http://169.254.169.254/latest/meta-data/
 
-1)	New more secure way (IMDSv2)
-```bash
-TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+    A)	Old insecure way (IMDSv1)
+    curl http://169.254.169.254/latest/meta-data/
+
+    B)	New more secure way (IMDSv2)
+    ```bash
+    TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 
 
 curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
@@ -140,6 +145,7 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
     ```bash
     sudo su
     # Note sudo will not work in AWS Ubuntu image. For manual install (bash) we will use sudo su that EC2ID variable will stay in to same user
+    # Note2 this is still missing libwww-perl package. You need to add it to final script.
     sudo apt update 
     sudo apt upgrade -y
     sudo apt install apache2 -y
