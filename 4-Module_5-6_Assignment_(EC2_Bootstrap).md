@@ -114,7 +114,6 @@ You will see a Success message.
 
 4) **This is a required package** Use Apt to install libwww-perl using command (apt install libwww-perl)
 
-
 5)	Check Swap Space in Linux using command (cat /proc/swaps) and add 1gb swap using following instructions https://repost.aws/knowledge-center/ec2-memory-swap-file
 
 
@@ -165,9 +164,11 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
 **TAKE A SCREENSHOT for the assignment! URL + txt. You have done the first part of the assignment. Next you will automate all settings on one user data script.**
 
  
-## Automating all settings on one user data
+## Automating all settings on one user data / What to return
 
-1)	Next in your assignment is to generate all previous steps in AWS User data. We are lazy and we want to automate all settings on one user data script. You have all the information from previous steps. You will use the same script as before but now you will add all commands to one script. Just 1+1+1 all the code and you are done :) 
+Next in your assignment is to generate all previous steps in AWS User data. We are lazy and we want to automate all settings on one user data script. You have all the information from previous steps. You will use the same script as before but now you will add all commands to one script. Just 1+1+1+1 all the code / knowledge and you are done :) 
+
+**Firewall(Security group) + SWAP + APT + libwww-perl + Apache + metadata(+ Tailscale)**
 
 **NOTE!!!**
 
@@ -186,8 +187,7 @@ SAMPLE SCRIPT:
 
 TAKE A SCREENSHOT for the assignment! URL + ID + script
 
-
-### THIS IS OPTIONAL!!! Tailscale integration
+### Tailscale is optional for one person groups and for larger groups it is highly recommended/assumed to be done !!! 
 
 Infrastructure-as-code tools like Pulumi or Terraform make it easy to spin up new resources like servers, or containers for your tailnet. Pre-authentication keys (“auth keys” for short) allow you to register them as they are being provisioned without needing to sign in via a web browser.
 
