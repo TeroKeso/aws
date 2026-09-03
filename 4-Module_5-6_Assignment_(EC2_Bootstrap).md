@@ -130,10 +130,8 @@ You will see a Success message.
     B)	New more secure way (IMDSv2)
     ```bash
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
-
-
-curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
-```
+    curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+    ```
 
 2)	Single new command 
 ```bash
@@ -143,8 +141,7 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
 3)	We will install Apache web server and export metadata information to webpage. Code is here: 
 
     ```bash
-    sudo su
-    # Note sudo will not work in AWS Ubuntu image. For manual install (bash) we will use sudo su that EC2ID variable will stay in to same user
+    sudo su # Note sudo will not work in AWS Ubuntu image. For manual install (bash) we will use sudo su that EC2ID variable will stay in to same user
     # Note2 this is still missing libwww-perl package. You need to add it to final script.
     sudo apt update 
     sudo apt upgrade -y
