@@ -151,6 +151,7 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
 
     EC2ID=$(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
     && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id)
+    #Note! We are using variable to store information that we are using later on. Variable will only works in this bash session. 
 
     echo '<center><h1>This is Ubuntu on AWS EC2 Instance IDHERE </h1></center>' > /var/www/html/index.html
 
