@@ -107,7 +107,7 @@ You need to calculate [Recovery Time Objective (RTO)](https://www.druva.com/lear
 
 You need to calculate the time it will take to retrieve the files from each storage class. You need to find out the download speeds for each storage class and calculate the time it will take to retrieve 1 TB of data.
 
-Bonuspoint: You can also calculate the cost of retrieving 1 TB of data from each storage class.
+Bonus points: You can also calculate the cost of retrieving 1 TB of data from each storage class.
 
 ### In-class Tasks 3 
 
@@ -116,11 +116,14 @@ You need to calculate cost of usage of S3 storage for your company. You will cal
 
 You can use AI and AWS pricing calculator to complete this task. FIRST try to calculate the cost of S3 storage and data transfer using AWS pricing calculator and then AI
 
+Materials :
+* https://aws.amazon.com/s3/pricing/?nc=sn&loc=4
+  - ""File reads directly from S3 bucket**	FREE""
+* https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-files-metering.html#s3-files-metering-s3-reads
+* 
+
 1) What will be the price of reading 10 TB of data from S3 Standard storage class using S3 files? 
  
 2) What is really missing from first question? Its is 3 word answer. And lets say it will be around 10 0000 and your EC2 is in same region. 
 
 3) What would be the cost if you use Nat Gateway to access the S3 files? (Get 10 000 and 10 TB of data from S3 Standard storage class using S3 files).
-
-
-
