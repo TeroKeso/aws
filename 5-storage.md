@@ -71,9 +71,9 @@
 
 ---
 
-## Practical Task : 
+## Practical Tasks : 
 
-### Lab - 4 Working with EBS (Amazon Academy Portal: Module 7 Storage)
+### Use AWS LAB cource to complete the following tasks.
 ---
 ### In-class Tasks
 
@@ -96,3 +96,34 @@
         - Update the security groups for your EC2 instances to allow outbound traffic to port 2049.
         - Mount EFS on EC2 Instances
     - Check from both instances that the newly created Amazon EFS is allowing shared access to files and directories.
+
+### In-class Tasks 2
+
+You need to calculate [Recovery Time Objective (RTO)](https://www.druva.com/learning-center/glossary/what-is-recovery-time-objective-definitions-and-related-faqs)to you company to get files back from S3 storage. We will remove all encryption and decryption times and just calculation file access time and download speeds. 
+
+1) File(s) will be size 1 TB and stored in S3 Standard storage class. 
+2) File(s) will be size 1 TB and stored in S3 Glacier storage class. 
+3) File(s) will be size 1 TB and stored in S3 Glacier Deep Archive storage class.
+
+You need to calculate the time it will take to retrieve the files from each storage class. You need to find out the download speeds for each storage class and calculate the time it will take to retrieve 1 TB of data.
+
+Bonus points: You can also calculate the cost of retrieving 1 TB of data from each storage class.
+
+### In-class Tasks 3 
+
+
+You need to calculate cost of usage of S3 storage for your company. You will calculate the cost of storing 10 TB of data in S3 Standard storage class. You will also using EC2 computer to access the data on S3. **You dont need to calculate the cost of EC2 instance.** 
+
+You can use AI and AWS pricing calculator to complete this task. FIRST try to calculate the cost of S3 storage and data transfer using AWS pricing calculator and then AI
+
+Materials :
+* https://aws.amazon.com/s3/pricing/?nc=sn&loc=4
+  - ""File reads directly from S3 bucket**	FREE""
+* https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-files-metering.html#s3-files-metering-s3-reads
+* 
+
+1) What will be the price of reading 10 TB of data from S3 Standard storage class using S3 files? 
+ 
+2) What is really missing from first question? Its is 3 word answer. And lets say it will be around 10 0000 and your EC2 is in same region. 
+
+3) What would be the cost if you use Nat Gateway to access the S3 files? (Get 10 000 and 10 TB of data from S3 Standard storage class using S3 files).
